@@ -1,0 +1,84 @@
+﻿@model AARVWebApp.Models.ClientMaster
+@{
+    ViewBag.Title = "EditClient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Edit Client Details</h3>
+                <hr />
+
+                @using (Html.BeginForm("EditClient", "Project", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.ClientID)
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Client Name</label>
+                                @Html.TextBoxFor(m => m.ClientName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                @Html.TextBoxFor(m => m.ProjectName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Phone Number</label>
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>WhatsApp Number</label>
+                            @Html.TextBoxFor(m => m.WhatsAppNumber, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Email</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Reference</label>
+                            @Html.TextBoxFor(m => m.Reference, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-12">
+                            <label>Address</label>
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>City</label>
+                            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <label>State</label>
+                            @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <label>Country</label>
+                            @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-end">
+                        <a href="@Url.Action("ClientList", "Project")" class="btn btn-light">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

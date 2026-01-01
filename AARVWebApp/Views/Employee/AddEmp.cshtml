@@ -1,0 +1,376 @@
+﻿@model AARVWebApp.Models.EmployeeMaster
+@{
+    ViewBag.Title = "AddEmp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Employee</title>
+
+    <style>
+        .form-section {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-title {
+            font-weight: bold;
+            color: #141414;
+            margin-bottom: 15px;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #e9f2ff;
+            border-color: #dee2e6 #dee2e6 #fff;
+        }
+
+        .form-select {
+            font-size: 14px;
+        }
+
+        option {
+            padding: 20px;
+        }
+
+        .editor-toolbar {
+            border: 1px solid #ccc;
+            padding: 0.4rem;
+            border-bottom: none;
+            background-color: #f9f9f9;
+        }
+
+        .editor-content {
+            border: 1px solid #ccc;
+            min-height: 150px;
+            padding: 0.5rem;
+        }
+
+        .radio-label {
+            margin-right: 15px;
+        }
+
+        .work-textarea {
+            display: none;
+        }
+    </style>
+</head>
+<body class="content-wrapper p-4">
+
+    <div class="container rounded p-4 shadow-sm">
+        <h4 class="mb-3 text-dark">Add Employee</h4>
+
+        @using (Html.BeginForm("AddEmp", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="EmpId" value="@Model.Emp_ID" />
+
+            <!-- Nav Tabs -->
+            <ul class="nav nav-tabs mb-3 bg-white" id="employeeTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active text-primary" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab">Employee Info</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-primary" id="employment-tab" data-bs-toggle="tab" data-bs-target="#employment" type="button" role="tab">Employment Details</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-primary" id="other-tab" data-bs-toggle="tab" data-bs-target="#other" type="button" role="tab">Other Information</button>
+                </li>
+            </ul>
+
+            <div class="tab-content bg-white" id="employeeTabsContent">
+                <!-- Employee Info -->
+                <div class="tab-pane fade show active" id="info" role="tabpanel">
+                    <div class="form-section">
+                        <div class="form-title">Basic Info</div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Employee Code</label>
+                            @Html.TextBoxFor(m => m.Emp_Code, new { @class = "form-control", placeholder = "Code" })
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-md-4">@Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })</div>
+                            <div class="col-md-4">@Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "Middle Name" })</div>
+                            <div class="col-md-4">@Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })</div>
+                        </div>
+
+                        <div class="row g-2 mt-2">
+                            <div class="col-md-6">@Html.TextBoxFor(m => m.PersonalEmail, new { @class = "form-control", placeholder = "Personal Email" })</div>
+                            <div class="col-md-6">@Html.TextBoxFor(m => m.PhoneNo, new { @class = "form-control", placeholder = "Phone Number" })</div>
+                        </div>
+
+                        <div class="row g-2 mt-2">
+                            <div class="col-md-4">@Html.TextBoxFor(m => m.OfficeEmail, new { @class = "form-control", placeholder = "Office Email" })</div>
+                            <div class="col-md-4">@Html.TextBoxFor(m => m.EmergCntName, new { @class = "form-control", placeholder = "Emergency Contact Name" })</div>
+                            <div class="col-md-4">@Html.TextBoxFor(m => m.EmerPhoneNo, new { @class = "form-control", placeholder = "Emergency Phone No" })</div>
+                        </div>
+
+                        <div class="row g-2 mt-2">
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Male", "Female" }), "Select Gender", new { @class = "form-select" })
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Profile Photo</label>
+                                <input type="file" name="ProfilePhoto" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mt-2">
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Department, new { @class = "form-control", placeholder = "Department" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Designation, new { @class = "form-control", placeholder = "Designation" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.EmployeeType, new { @class = "form-control", placeholder = "Employee Type" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-title">Primary Address Info</div>
+                        <div class="row g-2">
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.P_Country, new { @class = "form-control", placeholder = "Country" })</div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.P_State, new { @class = "form-control", placeholder = "State" })</div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.P_City, new { @class = "form-control", placeholder = "City" })</div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.P_Addresstype, new { @class = "form-control", placeholder = "Address Type" })</div>
+                        </div>
+                        <div class="row mt-2 g-2">
+                            <div class="col-md-6">@Html.TextBoxFor(m => m.P_Add1, new { @class = "form-control", placeholder = "Address 1" })</div>
+                            <div class="col-md-6">@Html.TextBoxFor(m => m.P_Add2, new { @class = "form-control", placeholder = "Address 2" })</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-title">Current Address</div>
+                        <div class="row g-2">
+                            <div class="col-md-6">@Html.TextBoxFor(m => m.C_Add1, new { @class = "form-control", placeholder = "Address 1" })</div>
+                            <div class="col-md-6">@Html.TextBoxFor(m => m.C_Add2, new { @class = "form-control", placeholder = "Address 2" })</div>
+                        </div>
+                        <div class="row mt-2 g-2">
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.C_Country, new { @class = "form-control", placeholder = "Country" })</div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.C_State, new { @class = "form-control", placeholder = "State" })</div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.C_City, new { @class = "form-control", placeholder = "City" })</div>
+                            <div class="col-md-3">@Html.TextBoxFor(m => m.C_Pincode, new { @class = "form-control", placeholder = "Pincode" })</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-check">
+                            <label class="form-check-label" for="isActive">Set as Active</label>
+                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-check-input ms-2" })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employment Details -->
+                <div class="tab-pane fade" id="employment" role="tabpanel">
+                    <div class="form-section">
+                        <div class="form-title">Employment Period Details</div>
+                        <div class="row g-2">
+
+                            <div class="col-md-4">
+                                <label class="form-label">Joining Date</label>
+                                @Html.TextBoxFor(m => m.JoiningDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control" })
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Release Date</label>
+                                @Html.TextBoxFor(m => m.ReleaseDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control" })
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Last Date</label>
+                                @Html.TextBoxFor(m => m.LastDate, "{0:yyyy-MM-dd}", new { type = "date", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Info -->
+                <div class="tab-pane fade" id="other" role="tabpanel">
+                    <div class="form-section">
+                        <div class="form-title">KYC Information</div>
+                        <div class="row g-2">
+                            <div class="col-md-4">@Html.TextBoxFor(m => m.AadharNo, new { @class = "form-control", placeholder = "Aadhar No" })</div>
+                            <div class="col-md-4">@Html.TextBoxFor(m => m.PanNo, new { @class = "form-control", placeholder = "PAN No" })</div>
+                            <div class="col-md-4">@Html.TextBoxFor(m => m.EPFUANNo, new { @class = "form-control", placeholder = "EPF UAN" })</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-title">Work Experience Information</div>
+
+                        <!-- Radio Buttons Bound to Model -->
+                        <label class="radio-label">
+                            <input type="radio" name="WorkStatus" value="Fresher" @(Model.WorkStatus == "Fresher" ? "checked" : "") onclick="toggleExperience()">
+                            <span class="form-radio-label">Fresher</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="WorkStatus" value="Experienced" @(Model.WorkStatus == "Experienced" ? "checked" : "") onclick="toggleExperience()">
+                            <span class="form-radio-label">Experience</span>
+                        </label>
+
+                        <!-- Experience Textarea -->
+                        <div id="experienceTextarea" class="mb-4 work-textarea mt-3" style="display:@(Model.WorkStatus == "Experienced" ? "block" : "none");">
+                            <label for="ExperienceDetails" class="form-label">Work Experience Details</label>
+                            @Html.TextAreaFor(m => m.WorkExperinence, new { @class = "form-control", id = "ExperienceDetails", rows = "4", placeholder = "Describe your work experience..." })
+                        </div>
+
+                        <!-- Education Editor -->
+                        <div class="mb-2 mt-3">
+                            <label class="form-label">Education Details</label>
+                            <div class="editor-toolbar">
+                                <button type="button" onclick="format('bold')" class="btn btn-sm btn-light"><b>B</b></button>
+                                <button type="button" onclick="format('italic')" class="btn btn-sm btn-light"><i>I</i></button>
+                                <button type="button" onclick="format('underline')" class="btn btn-sm btn-light"><u>U</u></button>
+                                <button type="button" onclick="format('insertUnorderedList')" class="btn btn-sm btn-light">• List</button>
+                                <button type="button" onclick="format('insertOrderedList')" class="btn btn-sm btn-light">1. List</button>
+                            </div>
+
+                            <!-- Rich Text Editor -->
+                            <div id="educationEditor" class="editor-content" contenteditable="true">
+                                @if (string.IsNullOrEmpty(Model.EducationDetails))
+                                {
+                                    @:Education Details
+                                }
+                                else
+                                {
+                                    @Html.Raw(Model.EducationDetails)
+                                }
+                            </div>
+
+                            <!-- Hidden Field to Store Editor HTML -->
+                            @Html.HiddenFor(m => m.EducationDetails, new { id = "EducationDetailsHidden" })
+                        </div>
+                    </div>
+
+                    <script>
+                        function toggleExperience() {
+                            const experienceDiv = document.getElementById("experienceTextarea");
+                            const experienceRadio = document.querySelector('input[value="Experienced"]');
+                            experienceDiv.style.display = experienceRadio.checked ? "block" : "none";
+                        }
+
+                        function format(command) {
+                            document.execCommand(command, false, null);
+                        }
+
+                        // Before form submit: Copy editor content into hidden field
+                        function prepareEducationContent() {
+                            document.getElementById("EducationDetailsHidden").value =
+                                document.getElementById("educationEditor").innerHTML;
+                        }
+                    </script>
+
+                </div>
+            </div>
+
+
+        
+
+            <!-- Buttons -->
+            <div class="text-end mt-3">
+                <button type="button" class="btn btn-danger" id="closeBtn">Close</button>
+                <button type="button" class="btn btn-success" id="saveNextBtn">Save & Next</button>
+                <button type="button" class="btn btn-primary" id="saveCloseBtn">Save & Close</button>
+            </div>
+
+        }
+    </div>
+    @section Scripts {
+        <script>
+    // Helper: Get current tab name
+    function getTabName(sectionIndex) {
+        switch (sectionIndex) {
+            case 0: return "info";
+            case 1: return "employment";
+            case 2: return "other";
+            default: return "info";
+        }
+    }
+
+    // Save a specific tab
+    async function saveTab(sectionIndex) {
+    const formData = new FormData();
+    const tabName = getTabName(sectionIndex);
+    formData.append("tabName", tabName);
+    formData.append("Emp_ID", document.getElementById("EmpId").value || 0);
+
+    if (tabName === "other") prepareEducationContent();
+
+    const inputs = document.querySelectorAll(`#${tabName} input, #${tabName} select, #${tabName} textarea`);
+    inputs.forEach(i => {
+        if (i.type === "file" && i.files.length > 0)
+            formData.append(i.name, i.files[0]);
+        else if (i.type === "radio") {
+            if (i.checked) formData.append(i.name, i.value);
+        } else {
+            formData.append(i.name, i.value);
+        }
+    });
+
+    const response = await fetch('@Url.Action("SavePartialTabData", "Home")', {
+        method: 'POST',
+        body: formData
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        document.getElementById("EmpId").value = result.empId;
+        console.log(result.message);
+        return true;
+    } else {
+        alert(result.message);
+        return false;
+    }
+}
+
+
+
+    // Save & Next
+    document.getElementById("saveNextBtn").addEventListener("click", async function () {
+        const allTabs = Array.from(document.querySelectorAll('#employeeTabs .nav-link'));
+        const activeTab = document.querySelector('#employeeTabs .nav-link.active');
+        const currentIndex = allTabs.indexOf(activeTab);
+
+        const saved = await saveTab(currentIndex);
+        if (saved && currentIndex < allTabs.length - 1) {
+            const nextTab = new bootstrap.Tab(allTabs[currentIndex + 1]);
+            nextTab.show();
+        }
+    });
+
+   document.getElementById("saveCloseBtn").addEventListener("click", async function () {
+    for (let i = 0; i < 3; i++) {
+        const ok = await saveTab(i);
+        if (!ok) return;
+    }
+
+    const empId = document.getElementById("EmpId").value;
+    const response = await fetch('@Url.Action("SaveFinal", "Home")', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `empId=${empId}`
+    });
+
+    const result = await response.json();
+    alert(result.message);
+    if (result.success) window.location.href = "/Home/EmpList";
+});
+
+
+    // Close
+    document.getElementById("closeBtn").addEventListener("click", function () {
+        window.location.href = "/Home/Index";
+    });
+        </script>
+    }
+
+</body>
+</html>

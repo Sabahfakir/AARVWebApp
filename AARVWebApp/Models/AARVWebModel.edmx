@@ -1,0 +1,872 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AARVWebDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClientMaster">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="200" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" />
+          <Property Name="WhatsAppNumber" Type="nvarchar" MaxLength="15" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="Reference" Type="nvarchar" MaxLength="150" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="100" />
+          <Property Name="Country" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="UpdatedById" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emp_Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonalEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="OfficeEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmergCntName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmerPhoneNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ProfilePhoto" Type="nvarchar" MaxLength="255" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeType" Type="nvarchar" MaxLength="50" />
+          <Property Name="P_Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="P_State" Type="nvarchar" MaxLength="50" />
+          <Property Name="P_City" Type="nvarchar" MaxLength="50" />
+          <Property Name="P_Addresstype" Type="nvarchar" MaxLength="50" />
+          <Property Name="P_Add1" Type="nvarchar" MaxLength="255" />
+          <Property Name="P_Add2" Type="nvarchar" MaxLength="255" />
+          <Property Name="C_Add1" Type="nvarchar" MaxLength="255" />
+          <Property Name="C_Add2" Type="nvarchar" MaxLength="255" />
+          <Property Name="C_Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="C_State" Type="nvarchar" MaxLength="50" />
+          <Property Name="C_City" Type="nvarchar" MaxLength="50" />
+          <Property Name="C_Pincode" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="JoiningDate" Type="date" />
+          <Property Name="ReleaseDate" Type="date" />
+          <Property Name="LastDate" Type="date" />
+          <Property Name="AadharNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="PanNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="EPFUANNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="WorkStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkExperinence" Type="nvarchar(max)" />
+          <Property Name="EducationDetails" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="LoginHistory">
+          <Key>
+            <PropertyRef Name="LoginHistoryID" />
+          </Key>
+          <Property Name="LoginHistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="LoginTime" Type="datetime" Nullable="false" />
+          <Property Name="IpAddress" Type="varchar" MaxLength="100" />
+          <Property Name="BrowserInfo" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Project_Category">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project_Status">
+          <Key>
+            <PropertyRef Name="Status_ID" />
+          </Key>
+          <Property Name="Status_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectDetails">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="DueDate" Type="date" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ProjectManager" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="UpdatedById" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="ProjectManagerID" Type="int" />
+        </EntityType>
+        <EntityType Name="ProjectFiles">
+          <Key>
+            <PropertyRef Name="FileID" />
+          </Key>
+          <Property Name="FileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FileType" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileSizeMB" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UploadedById" Type="int" />
+          <Property Name="UploadedDate" Type="datetime" />
+          <Property Name="UpdatedById" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobile" Type="bigint" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__LoginHist__UserI__3F466844">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="1" />
+          <End Role="LoginHistory" Type="Self.LoginHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="LoginHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientMaster_CreatedBy">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="ClientMaster" Type="Self.ClientMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ClientMaster">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientMaster_UpdatedBy">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="ClientMaster" Type="Self.ClientMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ClientMaster">
+              <PropertyRef Name="UpdatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_Category">
+          <End Role="Project_Category" Type="Self.Project_Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectDetails" Type="Self.ProjectDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project_Category">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetails">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_CreatedBy">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="ProjectDetails" Type="Self.ProjectDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetails">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_ProjectManager">
+          <End Role="EmployeeMaster" Type="Self.EmployeeMaster" Multiplicity="0..1" />
+          <End Role="ProjectDetails" Type="Self.ProjectDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeMaster">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetails">
+              <PropertyRef Name="ProjectManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_Status">
+          <End Role="Project_Status" Type="Self.Project_Status" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectDetails" Type="Self.ProjectDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project_Status">
+              <PropertyRef Name="Status_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetails">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_UpdatedBy">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="ProjectDetails" Type="Self.ProjectDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetails">
+              <PropertyRef Name="UpdatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectFiles_Project">
+          <End Role="ProjectDetails" Type="Self.ProjectDetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectFiles" Type="Self.ProjectFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectDetails">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectFiles">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectFiles_UpdatedBy">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="ProjectFiles" Type="Self.ProjectFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ProjectFiles">
+              <PropertyRef Name="UpdatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectFiles_UploadedBy">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="ProjectFiles" Type="Self.ProjectFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ProjectFiles">
+              <PropertyRef Name="UploadedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AARVWebDBModelStoreContainer">
+          <EntitySet Name="ClientMaster" EntityType="Self.ClientMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeMaster" EntityType="Self.EmployeeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project_Category" EntityType="Self.Project_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project_Status" EntityType="Self.Project_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectDetails" EntityType="Self.ProjectDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectFiles" EntityType="Self.ProjectFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__LoginHist__UserI__3F466844" Association="Self.FK__LoginHist__UserI__3F466844">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="LoginHistory" EntitySet="LoginHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientMaster_CreatedBy" Association="Self.FK_ClientMaster_CreatedBy">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="ClientMaster" EntitySet="ClientMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientMaster_UpdatedBy" Association="Self.FK_ClientMaster_UpdatedBy">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="ClientMaster" EntitySet="ClientMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_Category" Association="Self.FK_ProjectDetails_Category">
+            <End Role="Project_Category" EntitySet="Project_Category" />
+            <End Role="ProjectDetails" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_CreatedBy" Association="Self.FK_ProjectDetails_CreatedBy">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="ProjectDetails" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_ProjectManager" Association="Self.FK_ProjectDetails_ProjectManager">
+            <End Role="EmployeeMaster" EntitySet="EmployeeMaster" />
+            <End Role="ProjectDetails" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_Status" Association="Self.FK_ProjectDetails_Status">
+            <End Role="Project_Status" EntitySet="Project_Status" />
+            <End Role="ProjectDetails" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_UpdatedBy" Association="Self.FK_ProjectDetails_UpdatedBy">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="ProjectDetails" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectFiles_Project" Association="Self.FK_ProjectFiles_Project">
+            <End Role="ProjectDetails" EntitySet="ProjectDetails" />
+            <End Role="ProjectFiles" EntitySet="ProjectFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectFiles_UpdatedBy" Association="Self.FK_ProjectFiles_UpdatedBy">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="ProjectFiles" EntitySet="ProjectFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectFiles_UploadedBy" Association="Self.FK_ProjectFiles_UploadedBy">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="ProjectFiles" EntitySet="ProjectFiles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AARVWebDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AARVWebDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserMasters" EntityType="AARVWebDBModel.UserMaster" />
+          <EntitySet Name="EmployeeMasters" EntityType="AARVWebDBModel.EmployeeMaster" />
+          <EntitySet Name="ClientMasters" EntityType="AARVWebDBModel.ClientMaster" />
+          <EntitySet Name="Project_Category" EntityType="AARVWebDBModel.Project_Category" />
+          <EntitySet Name="Project_Status" EntityType="AARVWebDBModel.Project_Status" />
+          <EntitySet Name="ProjectDetails" EntityType="AARVWebDBModel.ProjectDetail" />
+          <EntitySet Name="ProjectFiles" EntityType="AARVWebDBModel.ProjectFile" />
+          <AssociationSet Name="FK_ClientMaster_CreatedBy" Association="AARVWebDBModel.FK_ClientMaster_CreatedBy">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="ClientMaster" EntitySet="ClientMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientMaster_UpdatedBy" Association="AARVWebDBModel.FK_ClientMaster_UpdatedBy">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="ClientMaster" EntitySet="ClientMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_ProjectManager" Association="AARVWebDBModel.FK_ProjectDetails_ProjectManager">
+            <End Role="EmployeeMaster" EntitySet="EmployeeMasters" />
+            <End Role="ProjectDetail" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_Category" Association="AARVWebDBModel.FK_ProjectDetails_Category">
+            <End Role="Project_Category" EntitySet="Project_Category" />
+            <End Role="ProjectDetail" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_Status" Association="AARVWebDBModel.FK_ProjectDetails_Status">
+            <End Role="Project_Status" EntitySet="Project_Status" />
+            <End Role="ProjectDetail" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_CreatedBy" Association="AARVWebDBModel.FK_ProjectDetails_CreatedBy">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="ProjectDetail" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectDetails_UpdatedBy" Association="AARVWebDBModel.FK_ProjectDetails_UpdatedBy">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="ProjectDetail" EntitySet="ProjectDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectFiles_Project" Association="AARVWebDBModel.FK_ProjectFiles_Project">
+            <End Role="ProjectDetail" EntitySet="ProjectDetails" />
+            <End Role="ProjectFile" EntitySet="ProjectFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectFiles_UpdatedBy" Association="AARVWebDBModel.FK_ProjectFiles_UpdatedBy">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="ProjectFile" EntitySet="ProjectFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectFiles_UploadedBy" Association="AARVWebDBModel.FK_ProjectFiles_UploadedBy">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="ProjectFile" EntitySet="ProjectFiles" />
+          </AssociationSet>
+          <EntitySet Name="LoginHistories" EntityType="AARVWebDBModel.LoginHistory" />
+          <AssociationSet Name="FK__LoginHist__UserI__3F466844" Association="AARVWebDBModel.FK__LoginHist__UserI__3F466844">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="LoginHistory" EntitySet="LoginHistories" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="Int64" Nullable="false" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClientMasters" Relationship="AARVWebDBModel.FK_ClientMaster_CreatedBy" FromRole="UserMaster" ToRole="ClientMaster" />
+          <NavigationProperty Name="ClientMasters1" Relationship="AARVWebDBModel.FK_ClientMaster_UpdatedBy" FromRole="UserMaster" ToRole="ClientMaster" />
+          <NavigationProperty Name="ProjectDetails" Relationship="AARVWebDBModel.FK_ProjectDetails_CreatedBy" FromRole="UserMaster" ToRole="ProjectDetail" />
+          <NavigationProperty Name="ProjectDetails1" Relationship="AARVWebDBModel.FK_ProjectDetails_UpdatedBy" FromRole="UserMaster" ToRole="ProjectDetail" />
+          <NavigationProperty Name="ProjectFiles" Relationship="AARVWebDBModel.FK_ProjectFiles_UpdatedBy" FromRole="UserMaster" ToRole="ProjectFile" />
+          <NavigationProperty Name="ProjectFiles1" Relationship="AARVWebDBModel.FK_ProjectFiles_UploadedBy" FromRole="UserMaster" ToRole="ProjectFile" />
+          <NavigationProperty Name="LoginHistories" Relationship="AARVWebDBModel.FK__LoginHist__UserI__3F466844" FromRole="UserMaster" ToRole="LoginHistory" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emp_Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonalEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmergCntName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmerPhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePhoto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="P_Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="P_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="P_City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="P_Addresstype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="P_Add1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="P_Add2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C_Add1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C_Add2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C_Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C_City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C_Pincode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="JoiningDate" Type="DateTime" Precision="0" />
+          <Property Name="ReleaseDate" Type="DateTime" Precision="0" />
+          <Property Name="LastDate" Type="DateTime" Precision="0" />
+          <Property Name="AadharNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PanNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EPFUANNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="WorkStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkExperinence" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EducationDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProjectDetails" Relationship="AARVWebDBModel.FK_ProjectDetails_ProjectManager" FromRole="EmployeeMaster" ToRole="ProjectDetail" />
+        </EntityType>
+        <EntityType Name="ClientMaster">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="WhatsAppNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Reference" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="UpdatedById" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="UserMaster" Relationship="AARVWebDBModel.FK_ClientMaster_CreatedBy" FromRole="ClientMaster" ToRole="UserMaster" />
+          <NavigationProperty Name="UserMaster1" Relationship="AARVWebDBModel.FK_ClientMaster_UpdatedBy" FromRole="ClientMaster" ToRole="UserMaster" />
+        </EntityType>
+        <EntityType Name="Project_Category">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProjectDetails" Relationship="AARVWebDBModel.FK_ProjectDetails_Category" FromRole="Project_Category" ToRole="ProjectDetail" />
+        </EntityType>
+        <EntityType Name="Project_Status">
+          <Key>
+            <PropertyRef Name="Status_ID" />
+          </Key>
+          <Property Name="Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProjectDetails" Relationship="AARVWebDBModel.FK_ProjectDetails_Status" FromRole="Project_Status" ToRole="ProjectDetail" />
+        </EntityType>
+        <EntityType Name="ProjectDetail">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DueDate" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectManager" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="UpdatedById" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="ProjectManagerID" Type="Int32" />
+          <NavigationProperty Name="EmployeeMaster" Relationship="AARVWebDBModel.FK_ProjectDetails_ProjectManager" FromRole="ProjectDetail" ToRole="EmployeeMaster" />
+          <NavigationProperty Name="Project_Category" Relationship="AARVWebDBModel.FK_ProjectDetails_Category" FromRole="ProjectDetail" ToRole="Project_Category" />
+          <NavigationProperty Name="Project_Status" Relationship="AARVWebDBModel.FK_ProjectDetails_Status" FromRole="ProjectDetail" ToRole="Project_Status" />
+          <NavigationProperty Name="UserMaster" Relationship="AARVWebDBModel.FK_ProjectDetails_CreatedBy" FromRole="ProjectDetail" ToRole="UserMaster" />
+          <NavigationProperty Name="UserMaster1" Relationship="AARVWebDBModel.FK_ProjectDetails_UpdatedBy" FromRole="ProjectDetail" ToRole="UserMaster" />
+          <NavigationProperty Name="ProjectFiles" Relationship="AARVWebDBModel.FK_ProjectFiles_Project" FromRole="ProjectDetail" ToRole="ProjectFile" />
+        </EntityType>
+        <EntityType Name="ProjectFile">
+          <Key>
+            <PropertyRef Name="FileID" />
+          </Key>
+          <Property Name="FileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileSizeMB" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UploadedById" Type="Int32" />
+          <Property Name="UploadedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedById" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="ProjectDetail" Relationship="AARVWebDBModel.FK_ProjectFiles_Project" FromRole="ProjectFile" ToRole="ProjectDetail" />
+          <NavigationProperty Name="UserMaster" Relationship="AARVWebDBModel.FK_ProjectFiles_UpdatedBy" FromRole="ProjectFile" ToRole="UserMaster" />
+          <NavigationProperty Name="UserMaster1" Relationship="AARVWebDBModel.FK_ProjectFiles_UploadedBy" FromRole="ProjectFile" ToRole="UserMaster" />
+        </EntityType>
+        <Association Name="FK_ClientMaster_CreatedBy">
+          <End Type="AARVWebDBModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
+          <End Type="AARVWebDBModel.ClientMaster" Role="ClientMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ClientMaster">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientMaster_UpdatedBy">
+          <End Type="AARVWebDBModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
+          <End Type="AARVWebDBModel.ClientMaster" Role="ClientMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ClientMaster">
+              <PropertyRef Name="UpdatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_ProjectManager">
+          <End Type="AARVWebDBModel.EmployeeMaster" Role="EmployeeMaster" Multiplicity="0..1" />
+          <End Type="AARVWebDBModel.ProjectDetail" Role="ProjectDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeMaster">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetail">
+              <PropertyRef Name="ProjectManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_Category">
+          <End Type="AARVWebDBModel.Project_Category" Role="Project_Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AARVWebDBModel.ProjectDetail" Role="ProjectDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project_Category">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetail">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_Status">
+          <End Type="AARVWebDBModel.Project_Status" Role="Project_Status" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AARVWebDBModel.ProjectDetail" Role="ProjectDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project_Status">
+              <PropertyRef Name="Status_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetail">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_CreatedBy">
+          <End Type="AARVWebDBModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
+          <End Type="AARVWebDBModel.ProjectDetail" Role="ProjectDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetail">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectDetails_UpdatedBy">
+          <End Type="AARVWebDBModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
+          <End Type="AARVWebDBModel.ProjectDetail" Role="ProjectDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ProjectDetail">
+              <PropertyRef Name="UpdatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectFiles_Project">
+          <End Type="AARVWebDBModel.ProjectDetail" Role="ProjectDetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AARVWebDBModel.ProjectFile" Role="ProjectFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectDetail">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectFile">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectFiles_UpdatedBy">
+          <End Type="AARVWebDBModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
+          <End Type="AARVWebDBModel.ProjectFile" Role="ProjectFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ProjectFile">
+              <PropertyRef Name="UpdatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectFiles_UploadedBy">
+          <End Type="AARVWebDBModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
+          <End Type="AARVWebDBModel.ProjectFile" Role="ProjectFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="ProjectFile">
+              <PropertyRef Name="UploadedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LoginHistory">
+          <Key>
+            <PropertyRef Name="LoginHistoryID" />
+          </Key>
+          <Property Name="LoginHistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="LoginTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IpAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BrowserInfo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserMaster" Relationship="AARVWebDBModel.FK__LoginHist__UserI__3F466844" FromRole="LoginHistory" ToRole="UserMaster" />
+        </EntityType>
+        <Association Name="FK__LoginHist__UserI__3F466844">
+          <End Type="AARVWebDBModel.UserMaster" Role="UserMaster" Multiplicity="1" />
+          <End Type="AARVWebDBModel.LoginHistory" Role="LoginHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="LoginHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AARVWebDBModelStoreContainer" CdmEntityContainer="AARVWebDBEntities">
+          <EntitySetMapping Name="UserMasters">
+            <EntityTypeMapping TypeName="AARVWebDBModel.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeMasters">
+            <EntityTypeMapping TypeName="AARVWebDBModel.EmployeeMaster">
+              <MappingFragment StoreEntitySet="EmployeeMaster">
+                <ScalarProperty Name="EducationDetails" ColumnName="EducationDetails" />
+                <ScalarProperty Name="WorkExperinence" ColumnName="WorkExperinence" />
+                <ScalarProperty Name="WorkStatus" ColumnName="WorkStatus" />
+                <ScalarProperty Name="EPFUANNo" ColumnName="EPFUANNo" />
+                <ScalarProperty Name="PanNo" ColumnName="PanNo" />
+                <ScalarProperty Name="AadharNo" ColumnName="AadharNo" />
+                <ScalarProperty Name="LastDate" ColumnName="LastDate" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="C_Pincode" ColumnName="C_Pincode" />
+                <ScalarProperty Name="C_City" ColumnName="C_City" />
+                <ScalarProperty Name="C_State" ColumnName="C_State" />
+                <ScalarProperty Name="C_Country" ColumnName="C_Country" />
+                <ScalarProperty Name="C_Add2" ColumnName="C_Add2" />
+                <ScalarProperty Name="C_Add1" ColumnName="C_Add1" />
+                <ScalarProperty Name="P_Add2" ColumnName="P_Add2" />
+                <ScalarProperty Name="P_Add1" ColumnName="P_Add1" />
+                <ScalarProperty Name="P_Addresstype" ColumnName="P_Addresstype" />
+                <ScalarProperty Name="P_City" ColumnName="P_City" />
+                <ScalarProperty Name="P_State" ColumnName="P_State" />
+                <ScalarProperty Name="P_Country" ColumnName="P_Country" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="EmerPhoneNo" ColumnName="EmerPhoneNo" />
+                <ScalarProperty Name="EmergCntName" ColumnName="EmergCntName" />
+                <ScalarProperty Name="OfficeEmail" ColumnName="OfficeEmail" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="PersonalEmail" ColumnName="PersonalEmail" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Emp_Code" ColumnName="Emp_Code" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientMasters">
+            <EntityTypeMapping TypeName="AARVWebDBModel.ClientMaster">
+              <MappingFragment StoreEntitySet="ClientMaster">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedById" ColumnName="UpdatedById" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="WhatsAppNumber" ColumnName="WhatsAppNumber" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project_Category">
+            <EntityTypeMapping TypeName="AARVWebDBModel.Project_Category">
+              <MappingFragment StoreEntitySet="Project_Category">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project_Status">
+            <EntityTypeMapping TypeName="AARVWebDBModel.Project_Status">
+              <MappingFragment StoreEntitySet="Project_Status">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectDetails">
+            <EntityTypeMapping TypeName="AARVWebDBModel.ProjectDetail">
+              <MappingFragment StoreEntitySet="ProjectDetails">
+                <ScalarProperty Name="ProjectManagerID" ColumnName="ProjectManagerID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedById" ColumnName="UpdatedById" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ProjectManager" ColumnName="ProjectManager" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectFiles">
+            <EntityTypeMapping TypeName="AARVWebDBModel.ProjectFile">
+              <MappingFragment StoreEntitySet="ProjectFiles">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedById" ColumnName="UpdatedById" />
+                <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
+                <ScalarProperty Name="UploadedById" ColumnName="UploadedById" />
+                <ScalarProperty Name="FileSizeMB" ColumnName="FileSizeMB" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="FileID" ColumnName="FileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginHistories">
+            <EntityTypeMapping TypeName="AARVWebDBModel.LoginHistory">
+              <MappingFragment StoreEntitySet="LoginHistory">
+                <ScalarProperty Name="BrowserInfo" ColumnName="BrowserInfo" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginHistoryID" ColumnName="LoginHistoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

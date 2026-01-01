@@ -1,0 +1,294 @@
+
+@{
+    ViewBag.Title = "StudentDetail";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="container form-container shadow-sm w-50 bg-white border  p-2">
+        <h2 class="mb-3 text-center mt-3">Student Registration Form</h2>
+        <form class="needs-validation p-3" novalidate>
+
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" required>
+                <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" required>
+                <div class="invalid-feedback">Please select your date of birth.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-select" id="category" required>
+                    <option value="">Choose...</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+
+                </select>
+                <div class="invalid-feedback">Please select your gender</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" pattern="[0-9]{10}" required>
+                <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" rows="3" required></textarea>
+                <div class="invalid-feedback">Please enter your address.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="course" class="form-label">Course</label>
+                <select class="form-select" id="course" required>
+                    <option value="">Choose...</option>
+                    <option value="BBA">BBA</option>
+                    <option value="BCA">BCA</option>
+                    <option value="MCA">MCA</option>
+                    <option value="MBA">MBA</option>
+                </select>
+                <div class="invalid-feedback">Please select your course.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="marks" class="form-label">CET Marks</label>
+                <input type="text" class="form-control" id="marks" required>
+                <div class="invalid-feedback">Please enter your entrance exam marks</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" id="category" required>
+                    <option value="">Choose...</option>
+                    <option value="SC">SC</option>
+                    <option value="ST">ST</option>
+                    <option value="OBC">OBC</option>
+                    <option value="General">General</option>
+                    <option value="EWS">EWS</option>
+                </select>
+                <div class="invalid-feedback">Please select your category.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="certificate" class="form-label">Caste Certificate (PDF/JPG/PNG)</label>
+                <input class="form-control" type="file" id="certificate" accept=".pdf,.jpg,.jpeg,.png" required>
+                <div class="invalid-feedback">Please upload your caste certificate.</div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    (() => {
+      'use strict'
+      const forms = document.querySelectorAll('.needs-validation')
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@model AdmissionPortal.Models.StudentMaster
+
+@{
+    ViewBag.Title = "Student Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="container form-container shadow-sm w-50 bg-white border p-4">
+        <h2 class="mb-4 text-center">Student Registration Form</h2>
+
+        @using (Html.BeginForm("StudentDetail", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.DOB)
+                @Html.TextBoxFor(m => m.DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Gender)
+                @Html.DropDownListFor(m => m.Gender,
+                    new SelectList(new[] { "Male", "Female", "Other" }),
+                    "Choose...",
+                    new { @class = "form-select" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Phone)
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", type = "tel" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Address)
+                @Html.TextAreaFor(m => m.Address, new { @class = "form-control", rows = 3 })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Course)
+                @Html.DropDownListFor(m => m.Course,
+                    new SelectList(new[] { "BBA", "BCA", "MBA", "MCA" }),
+                    "Choose...",
+                    new { @class = "form-select" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Marks)
+                @Html.TextBoxFor(m => m.Marks, new { @class = "form-control" })
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Category)
+                @Html.DropDownListFor(m => m.Category,
+                    new SelectList(new[] { "SC", "ST", "OBC", "General", "EWS" }),
+                    "Choose...",
+                    new { @class = "form-select" })
+            </div>
+
+            <div class="mb-3">
+                <label for="certificate">Caste Certificate (PDF/JPG/PNG)</label>
+                <input type="file" name="certificate" id="certificate" class="form-control" />
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        }
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success mt-3">@TempData["Success"]</div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger mt-3">@TempData["Error"]</div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
+@model AdmissionPortal.Models.StudRegistration
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-center">
+    <div class="card mt-5 shadow-sm">
+        <div class="card-body" style="width: 500px;">
+
+            <div class="pt-4 pb-2">
+                <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                <p class="text-center small">Enter your personal details to create account</p>
+            </div>
+
+            @using (Html.BeginForm("Create", "Account", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter your name" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter your email", type = "email" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Username, new { @class = "form-label" })
+                    <div class="input-group">
+                        <span class="input-group-text"></span>
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Choose a username" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter a password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+
+                
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary w-100">Create Account</button>
+                </div>
+
+                <div class="text-center">
+                    <p class="small mb-0">Already have an account? <a href="@Url.Action("Login", "StudentLogin")">Log in</a></p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

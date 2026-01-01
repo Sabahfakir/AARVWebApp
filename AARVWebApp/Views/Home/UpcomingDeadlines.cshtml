@@ -1,0 +1,115 @@
+﻿@model IEnumerable<AARVWebApp.Models.UpcomingDeadlineVM>
+@{
+    ViewBag.Title = "Upcoming Deadlines & Priority Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="card-title mb-0">Upcoming Deadlines (Next 7 Days)</h3>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead >
+                            <tr>
+                                <th>Project</th>
+                                <th>Client</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Manager</th>
+                                <th>Due Date</th>
+                                <th>Days Left</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                // STATUS COLOR
+                                string statusColor = item.Status.ToLower() == "completed" ? "bg-success" :
+                                                     item.Status.ToLower() == "pending" ? "bg-warning text-dark" :
+                                                     item.Status.ToLower() == "delayed" ? "bg-danger" : "bg-secondary";
+
+                                // PRIORITY COLOR
+                                string priorityColor = item.Priority == "High" ? "bg-danger" :
+                                                       item.Priority == "Medium" ? "bg-warning text-dark" : "bg-info";
+
+                                // DAYS LEFT COLOR
+                                string daysColor = item.DaysLeft <= 2 ? "bg-danger" :
+                                                   item.DaysLeft <= 5 ? "bg-warning text-dark" :
+                                                   "bg-success";
+
+                                <tr>
+                                    <td>@item.ProjectName</td>
+                                    <td>@item.ClientName</td>
+
+                                    <td>
+                                        <span class="badge @statusColor">@item.Status</span>
+                                    </td>
+
+                                    <td>
+                                        <span class="badge @priorityColor">@item.Priority</span>
+                                    </td>
+
+                                    <td>@item.EmployeeName</td>
+
+                                    <td>@(item.DueDate?.ToString("dd-MMM-yyyy") ?? "-")</td>
+
+
+                                    <td>
+                                        <span class="badge @daysColor">@item.DaysLeft days</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                @{
+                    int page = ViewBag.Page;
+                    int total = ViewBag.TotalRecords;
+                    int pageSize = ViewBag.PageSize;
+                    int totalPages = (int)Math.Ceiling((double)total / pageSize);
+                }
+
+                @if (totalPages > 1)
+                {
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-end mt-3">
+
+                            <li class="page-item @(page <= 1 ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("UpcomingDeadlines", new { page = page - 1 })">
+                                    &laquo; Prev
+                                </a>
+                            </li>
+
+                            @for (int i = 1; i <= totalPages; i++)
+                            {
+                                <li class="page-item @(i == page ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("UpcomingDeadlines", new { page = i })">@i</a>
+                                </li>
+                            }
+
+                            <li class="page-item @(page >= totalPages ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("UpcomingDeadlines", new { page = page + 1 })">
+                                    Next &raquo;
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>

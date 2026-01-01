@@ -1,0 +1,216 @@
+﻿
+@model IEnumerable<AARVWebApp.Models.EmployeeMaster>
+
+@{
+    ViewBag.Title = "Employee List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div>
+            <h3 class="page-title">Employee List</h3>
+
+            @using (Html.BeginForm("EmpList", "Employee", FormMethod.Get))
+            {
+                <div class="filters d-flex gap-2 mt-3">
+                    <select name="department" class="form-select">
+                        <option>Department</option>
+                        <option value="IT" @(ViewBag.Department == "IT" ? "selected" : "")>IT</option>
+                        <option value="Digital Marketing" @(ViewBag.Department == "Digital Marketing" ? "selected" : "")>Digital Marketing</option>
+                        <option value="HR" @(ViewBag.Department == "HR" ? "selected" : "")>HR</option>
+                        <option value="Finance" @(ViewBag.Department == "Finance" ? "selected" : "")>Finance</option>
+                    </select>
+
+                    <select name="status" class="form-select">
+                        <option>Employee Status</option>
+                        <option value="Active" @(ViewBag.Status == "active" ? "selected" : "")>Active</option>
+                        <option value="Not Active" @(ViewBag.Status == "Non Active" ? "selected" : "")>Non Active</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <a href="@Url.Action("EmpList", "Employee")" class="btn btn-danger">Clear</a>
+                </div>
+            }
+
+            <div class="mt-3">
+                <a href="@Url.Action("AddEmp","Employee")" class="btn btn-success btn-create">+ Create Employee</a>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Employee List</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Full Name</th>
+                                        <th>Contact No</th>
+                                        <th>Email</th>
+                                        <th>Designation</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        foreach (var emp in Model)
+                                        {
+                                            <tr>
+                                                <td>@emp.Emp_Code</td>
+                                                <td>@(emp.FirstName + " " + emp.LastName)</td>
+                                                <td>@emp.PhoneNo</td>
+                                                <td>@emp.PersonalEmail </td>
+                                                <td>@emp.Designation</td>
+                                                <td>@emp.Department</td>
+                                                <td>@emp.WorkStatus</td>
+                                                <td class="action-icons">
+                                                    <a href="@Url.Action("EmpDetails", "Employee", new { id = emp.Emp_ID })" class="btn btn-outline-primary btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                    <a href="@Url.Action("EmpEdit", "Employee", new { id = emp.Emp_ID })" class="btn btn-outline-success btn-sm">
+                                                        <i class="fa fa-pencil-square-o"></i>
+                                                    </a>
+                                                    <a href="@Url.Action("EmpDelete", "Employee", new { id = emp.Emp_ID })" class="btn btn-outline-danger btn-sm">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="8" class="text-center">No records found</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!--<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Employee List</title>-->
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">*@
+    <!--<style>
+            body {
+                background-color: #f8f9fa;
+            }
+
+            .card {
+                margin: 20px;
+            }
+
+            table th, table td {
+                vertical-align: middle !important;
+                text-align: center;
+            }
+
+            .action-icons i {
+                cursor: pointer;
+                margin: 0 5px;
+            }
+
+            .btn-export, .btn-create {
+                float: right;
+                margin-left: 10px;
+            }
+
+            .filters .form-select, .filters .form-control {
+                min-width: 200px;
+            }
+
+            .top-bar {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="top-bar mb-3">
+                        <div class="filters d-flex flex-wrap gap-2">
+                            <select class="form-select">
+                                <option selected>Department</option>
+                                <option>Software Developer</option>
+                                <option>Digital Marketing</option>
+                                <option>HR</option>
+                                <option>Finance</option>
+                            </select>
+
+                            <select class="form-select">
+                                <option selected>Employee Status</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                            </select>
+
+                            <button class="btn btn-primary">Search</button>
+                            <button class="btn btn-danger">Clear</button>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-success btn-create">+ Create Employee</button>
+                            <button class="btn btn-secondary btn-export">Export to Excel</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Full Name</th>
+                                    <th>Contact No</th>
+                                    <th>Email</th>
+                                    <th>Designation</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>-->
+    <!-- Sample Rows -->
+    <!--<tr>
+        <td>1001</td>
+        <td>Rahul Patil</td>
+        <td>9000000000</td>
+        <td>rahulpatil@gmail.com</td>
+        <td>Software Developer</td>
+        <td>IT</td>
+        <td>Active</td>
+        <td class="action-icons">
+            <i class="btn btn-outline-primary btn-sm bi bi-eye"></i>
+            <i class="btn btn-outline-success btn-sm bi bi-pencil-square"></i>
+            <i class="btn btn-outline-danger btn-sm bi bi-trash"></i>
+        </td>
+    </tr>-->
+    <!-- Repeat <tr> as needed -->
+    <!--</tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!-- Bootstrap Icons -->
+    <!--</body>
+    </html>-->

@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Add Client";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="container rounded p-4 shadow-sm bg-white">
+            <div class="form-container p-2 m-2">
+                <h2 class="form-title">Add Client Details</h2>
+
+                <form id="clientForm">
+                    <!-- Existing form fields (as in your question) -->
+                    <!-- Client Name -->
+                    <div class="mb-3">
+                        <label class="form-label">Client Name</label>
+                        <input type="text" class="form-control" id="ClientName" name="ClientName" placeholder="Enter client name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Project Name</label>
+                        <input type="text" class="form-control" id="ProjectName" name="ProjectName" placeholder="Enter project name">
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">WhatsApp Number</label>
+                            <input type="text" class="form-control" id="WhatsAppNumber" name="WhatsAppNumber">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="Email" name="Email">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Reference</label>
+                            <input type="text" class="form-control" id="Reference" name="Reference">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" id="Notes" name="Notes" rows="2"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" id="Address" name="Address" rows="2"></textarea>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-control" id="City" name="City">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">State</label>
+                            <input type="text" class="form-control" id="State" name="State">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Country</label>
+                            <input type="text" class="form-control" id="Country" name="Country">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+        <div class="text-end mt-3">
+            <button class="btn btn-danger" id="closeBtn" type="button">Cancel</button>
+            <button class="btn btn-primary" id="saveCloseBtn" type="button">Save</button>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $("#saveCloseBtn").click(function () {
+            var formData = {
+                ClientName: $("#ClientName").val(),
+                ProjectName: $("#ProjectName").val(),
+                PhoneNumber: $("#PhoneNumber").val(),
+                WhatsAppNumber: $("#WhatsAppNumber").val(),
+                Email: $("#Email").val(),
+                Reference: $("#Reference").val(),
+                Notes: $("#Notes").val(),
+                Address: $("#Address").val(),
+                City: $("#City").val(),
+                State: $("#State").val(),
+                Country: $("#Country").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SaveClient", "Project")',
+                data: JSON.stringify(formData),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        $("#clientForm")[0].reset();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while saving the client.");
+                }
+            });
+        });
+    </script>
+}
+

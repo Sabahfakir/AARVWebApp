@@ -1,0 +1,279 @@
+﻿@model IEnumerable<AARVWebApp.Models.ProjectDetail>
+@{
+    ViewBag.Title = "Project List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* --- Page & Table Layout --- */
+    .content-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 60px;
+    }
+
+    .card {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .table thead {
+        background-color: #6f42c1 !important; /* purple theme */
+        color: white;
+    }
+
+    .table th, .table td {
+        vertical-align: middle !important;
+        white-space: nowrap;
+    }
+
+    /* --- Search Bar & Pagination Bar --- */
+    .table-controls {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 2px solid #eee;
+    }
+
+    .search-box {
+        max-width: 300px;
+    }
+
+        .search-box input {
+          
+            border: 1px solid #ccc;
+            padding: 6px 15px;
+            width: 100%;
+        }
+
+    /* --- Pagination Styling --- */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: sticky;
+        bottom: 0;
+        background-color: #fff;
+        padding: 10px 0;
+        border-top: 1px solid #eee;
+        margin: 0;
+        z-index: 9;
+    }
+
+        .pagination button {
+            background-color: #6f42c1;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            margin: 0 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .pagination button:hover {
+                background-color: #563d7c;
+            }
+
+            .pagination button.active {
+                background-color: #5a32a3;
+                font-weight: bold;
+            }
+
+    .btn-gradient-primary {
+        background: linear-gradient(45deg, #6f42c1, #9c6ade);
+        color: #fff;
+        border: none;
+      
+        padding: 8px 18px;
+        font-weight: 500;
+    }
+</style>
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-controls">
+                    <h3 class="card-title mb-0">All Projects</h3>
+                    <div class="search-box">
+                        <input type="text" id="searchBox" placeholder="Search project...">
+                    </div>
+                    <a href="@Url.Action("AddProj", "Project")" class="btn btn-gradient-primary">
+                        + Add New Project
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle text-center" id="projectTable">
+                        <thead>
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Status</th>
+                                <th>Project Type</th>
+                                <th>Start Date</th>
+                                <th>Due Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    var status = item.Project_Status?.Status ?? "N/A";
+                                    var bgColor = GetStatusColor(status);
+                                    var textColor = GetStatusTextColor(status);
+
+                                    <tr>
+                                        <td class="text-start">@item.ProjectName</td>
+                                        <td>
+                                            <span class="fw-semibold px-2 py-1 rounded"
+                                                  style="background-color:@bgColor; color:@textColor; display:inline-block; min-width:110px;">
+                                                @status
+                                            </span>
+                                        </td>
+                                        <td>@item.Project_Category.CategoryName</td>
+                                        <td>@(item.StartDate.ToString("dd-MMM-yyyy") ?? "-")</td>
+                                        <td>@(item.DueDate?.ToString("dd-MMM-yyyy") ?? "-")</td>
+                                        <td>
+                                            <a href="@Url.Action("ViewProject", "Project", new { id = item.ProjectID })"
+                                               class="btn btn-sm btn-outline-primary rounded-circle" title="View">
+                                                <i class="mdi mdi-eye"></i>
+                                            </a>
+                                            <a href="@Url.Action("EditProject", "Project", new { id = item.ProjectID })"
+                                               class="btn btn-sm btn-outline-success rounded-circle" title="Edit">
+                                                <i class="mdi mdi-pencil"></i>
+                                            </a>
+                                            <a href="@Url.Action("DeleteProject", "Project", new { id = item.ProjectID })"
+                                               class="btn btn-sm rounded-circle btn-outline-danger" title="Delete">
+                                                <i class="mdi mdi-delete"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">No projects available</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetStatusColor(string status)
+    {
+        switch (status)
+        {
+            case "In Support": return "#fff3cd";
+            case "In Progress": return "#fff8e1";
+            case "Completed": return "#d4edda";
+            case "On Hold":  return "#e7f1ff";
+            default: return "#f8f9fa";
+        }
+    }
+
+    private string GetStatusTextColor(string status)
+    {
+        switch (status)
+        {
+            case "In Support": return "#856404";
+            case "In Progress": return "#856404";
+            case "Completed": return "#155724";
+            case "On Hold": return "#0d3b66";
+            default: return "#212529";
+        }
+    }
+}
+
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                const rowsPerPage = 5;
+                const $table = $("#projectTable tbody");
+                const $pagination = $("#pagination");
+                const $searchBox = $("#searchBox");
+
+                let allRows = $table.find("tr");
+                let filteredRows = allRows;
+
+                // Render pagination buttons
+                function renderPagination(totalPages) {
+                    $pagination.empty();
+                    if (totalPages <= 1) return;
+
+                    for (let i = 1; i <= totalPages; i++) {
+                        $pagination.append(`<button class="page-btn" data-page="${i}">${i}</button>`);
+                    }
+                    $pagination.find("button:first").addClass("active");
+                }
+
+                // Show only rows for the selected page
+                function showPage(page) {
+                    const start = (page - 1) * rowsPerPage;
+                    const end = start + rowsPerPage;
+                    allRows.hide();
+                    filteredRows.slice(start, end).show();
+
+                    $pagination.find("button").removeClass("active");
+                    $pagination.find(`button[data-page='${page}']`).addClass("active");
+                }
+
+                // Update pagination based on filtered rows
+                function updatePagination() {
+                    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+                    renderPagination(totalPages);
+                    showPage(1);
+                }
+
+                // Filter rows by search text
+                function filterRows() {
+                    const searchText = $searchBox.val().toLowerCase().trim();
+                    if (searchText === "") {
+                        filteredRows = allRows;
+                    } else {
+                        filteredRows = allRows.filter(function () {
+                            return $(this).text().toLowerCase().includes(searchText);
+                        });
+                    }
+                    updatePagination();
+                }
+
+                // Initial setup
+                updatePagination();
+
+                // Handle pagination button click
+                $pagination.on("click", ".page-btn", function () {
+                    const page = $(this).data("page");
+                    showPage(page);
+                });
+
+                // Handle search typing
+                $searchBox.on("keyup", function () {
+                    filterRows();
+                });
+            });
+        </script>
+    }
+
+

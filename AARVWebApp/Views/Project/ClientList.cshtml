@@ -1,0 +1,238 @@
+﻿@model IEnumerable<AARVWebApp.Models.ClientMaster>
+@{
+    ViewBag.Title = "Client List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">Client List</h3>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3 align-items-center">
+                    <h4 class="card-title mb-0">All Clients</h4>
+                    <div class="d-flex align-items-center">
+                        <input id="searchClient" type="text" class="form-control form-control-sm me-2"
+                               placeholder="Search clients..." style="width: 200px;" />
+                        <a href="@Url.Action("AddClient", "Project")" class="btn btn-gradient-primary">
+                            <i class="mdi mdi-plus"></i> Add New Client
+                        </a>
+                    </div>
+                </div>
+
+                <div class="table-responsive-custom">
+                    <table id="clientTable" class="table table-striped table-bordered align-middle mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Client Name</th>
+                                <th>Project Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                int i = 1;
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@item.ClientName</td>
+                                        <td>@item.ProjectName</td>
+                                        <td>@item.PhoneNumber</td>
+                                        <td>@item.Email</td>
+                                        <td>
+                                            @if (item.IsActive == true)
+                                            {
+                                                <span class="badge bg-success">Active</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">Inactive</span>
+                                            }
+                                        </td>
+                                        <td class="action-icons">
+                                            <a href="@Url.Action("ViewClient", "Project", new { id = item.ClientID })"
+                                               class="btn btn-outline-primary btn-sm rounded-circle">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="@Url.Action("EditClient", "Project", new { id = item.ClientID })"
+                                               class="btn btn-outline-success btn-sm rounded-circle">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                            <a href="@Url.Action("DeleteClient", "Project", new { id = item.ClientID })"
+                                               class="btn btn-outline-danger btn-sm rounded-circle"
+                                               onclick="return confirm('Are you sure you want to delete this client?');">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" class="text-center">No clients found.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span id="tableInfo">Showing 1 to 10 of clients</span>
+                    <ul id="pagination" class="pagination pagination-sm mb-0"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ✅ STYLES -->
+<style>
+    .table-responsive-custom {
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+        .table-responsive-custom::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .table-responsive-custom::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+
+            .table-responsive-custom::-webkit-scrollbar-thumb:hover {
+                background: rgba(0,0,0,0.4);
+            }
+
+    .pagination .page-link {
+        width: 32px;
+        height: 32px;
+        line-height: 30px;
+        border-radius: 50% !important;
+        text-align: center;
+        padding: 0;
+        margin: 0 4px;
+        font-size: 13px;
+        color: #6c757d;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        transition: all 0.3s ease;
+    }
+
+        .pagination .page-link:hover {
+            background-color: #f3e6ff;
+            color: #9b59b6;
+            border-color: #9b59b6;
+        }
+
+        .pagination .page-link.active {
+            background-color: #9b59b6;
+            border-color: #9b59b6;
+            color: #fff;
+        }
+
+    .action-icons .btn {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 3px;
+        border-radius: 50% !important;
+        transition: all 0.3s ease;
+    }
+
+        .action-icons .btn:hover {
+            transform: scale(1.05);
+        }
+
+    .table th, .table td {
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+</style>
+
+<!-- ✅ SCRIPT -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        const rowsPerPage = 5;
+        const rows = $("#clientTable tbody tr");
+        const totalRows = rows.length;
+        const totalPages = Math.ceil(totalRows / rowsPerPage);
+        let currentPage = 1;
+
+        function displayRows(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            rows.hide().slice(start, end).show();
+            $("#tableInfo").text(`Showing ${start + 1} to ${Math.min(end, totalRows)} of ${totalRows} clients`);
+        }
+
+        function setupPagination() {
+            $("#pagination").empty();
+            $("#pagination").append(`<li class="page-item"><a class="page-link" href="#" data-page="prev">«</a></li>`);
+            for (let i = 1; i <= totalPages; i++) {
+                $("#pagination").append(`<li class="page-item"><a class="page-link ${i === 1 ? 'active' : ''}" href="#" data-page="${i}">${i}</a></li>`);
+            }
+            $("#pagination").append(`<li class="page-item"><a class="page-link" href="#" data-page="next">»</a></li>`);
+        }
+
+        function updatePagination() {
+            $("#pagination .page-link").removeClass("active");
+            $(`#pagination .page-link[data-page='${currentPage}']`).addClass("active");
+        }
+
+        $("#pagination").on("click", ".page-link", function (e) {
+            e.preventDefault();
+            const page = $(this).data("page");
+            if (page === "prev" && currentPage > 1) currentPage--;
+            else if (page === "next" && currentPage < totalPages) currentPage++;
+            else if (!isNaN(page)) currentPage = parseInt(page);
+            displayRows(currentPage);
+            updatePagination();
+        });
+
+        $("#searchClient").on("keyup", function () {
+            const searchText = $(this).val().toLowerCase();
+            const filteredRows = rows.filter(function () {
+                return $(this).text().toLowerCase().includes(searchText);
+            });
+            rows.hide();
+            filteredRows.show();
+
+            // Recalculate pagination based on search results
+            const filteredCount = filteredRows.length;
+            const filteredPages = Math.ceil(filteredCount / rowsPerPage);
+            $("#pagination").empty();
+            if (filteredCount === 0) {
+                $("#tableInfo").text("No matching clients found");
+                return;
+            }
+            $("#pagination").append(`<li class="page-item"><a class="page-link" href="#" data-page="prev">«</a></li>`);
+            for (let i = 1; i <= filteredPages; i++) {
+                $("#pagination").append(`<li class="page-item"><a class="page-link ${i === 1 ? 'active' : ''}" href="#" data-page="${i}">${i}</a></li>`);
+            }
+            $("#pagination").append(`<li class="page-item"><a class="page-link" href="#" data-page="next">»</a></li>`);
+        });
+
+        // Initialize
+        setupPagination();
+        displayRows(currentPage);
+    });
+</script>

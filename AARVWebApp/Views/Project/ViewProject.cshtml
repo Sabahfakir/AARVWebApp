@@ -1,0 +1,46 @@
+﻿@model AARVWebApp.Models.ProjectDetail
+@{
+    ViewBag.Title = "ViewProject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="mb-3">Project Details</h3>
+
+                <dl class="row">
+                    <dt class="col-sm-3">Project Name</dt>
+                    <dd class="col-sm-9">@Model.ProjectName</dd>
+
+                    <dt class="col-sm-3">Project Type</dt>
+                    <dd class="col-sm-9">@Model.Project_Category.CategoryName</dd>
+                    
+
+
+                    <dt class="col-sm-3">Start Date</dt>
+                    <dd class="col-sm-9">@Model.StartDate</dd>
+
+                    <dt class="col-sm-3">Due Date</dt>
+                    <dd class="col-sm-9">@Model.DueDate?</dd>
+
+                    <dt class="col-sm-3">Status</dt>
+                    <dd class="col-sm-9">@Model.Project_Status.Status</dd>
+
+                    <dt class="col-sm-3">Description</dt>
+                    <dd class="col-sm-9">@Model.Description</dd>
+                </dl>
+
+                <a href="@Url.Action("EditProject", "Project", new { id = Model.ProjectID })" class="btn btn-gradient-primary">Edit</a>
+                <a href="@Url.Action("ProjectList", "Project")" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+

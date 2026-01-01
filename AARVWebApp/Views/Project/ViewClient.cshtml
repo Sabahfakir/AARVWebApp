@@ -1,0 +1,58 @@
+﻿@model AARVWebApp.Models.ClientMaster
+@{
+    ViewBag.Title = "ViewClient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Client Information</h3>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-3">Client Name</dt>
+                    <dd class="col-sm-9">@Model.ClientName</dd>
+
+                    <dt class="col-sm-3">Project Name</dt>
+                    <dd class="col-sm-9">@Model.ProjectName</dd>
+
+                    <dt class="col-sm-3">Phone</dt>
+                    <dd class="col-sm-9">@Model.PhoneNumber</dd>
+
+                    <dt class="col-sm-3">Email</dt>
+                    <dd class="col-sm-9">@Model.Email</dd>
+
+                    <dt class="col-sm-3">Address</dt>
+                    <dd class="col-sm-9">@Model.Address</dd>
+
+                    <dt class="col-sm-3">City</dt>
+                    <dd class="col-sm-9">@Model.City</dd>
+
+                    <dt class="col-sm-3">Country</dt>
+                    <dd class="col-sm-9">@Model.Country</dd>
+
+                    <dt class="col-sm-3">Status</dt>
+                    <dd class="col-sm-9">
+                        @if (Model.IsActive == true)
+                        {
+                            <span class="badge bg-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Inactive</span>
+                        }
+                    </dd>
+                </dl>
+                <div class="text-end">
+                    <a href="@Url.Action("ClientList", "Project")" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,251 @@
+﻿
+@model AARVWebApp.Models.EmployeeMaster
+@{
+    ViewBag.Title = "EmpDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="content-wrapper">
+    <h2 class="text-center mb-4">Employee Full Details</h2>
+
+    <div class="card shadow-lg p-4" id="printSection">
+        <h4 class="text-primary mb-3">Personal Information</h4>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Employee ID</th>
+                    <td>@Model.Emp_ID</td>
+                </tr>
+                <tr>
+                    <th>Employee Code</th>
+                    <td>@Model.Emp_Code</td>
+                </tr>
+                <tr>
+                    <th>Full Name</th>
+                    <td>@($"{Model.FirstName} {Model.MiddleName} {Model.LastName}")</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>@Model.Gender</td>
+                </tr>
+                <tr>
+                    <th>Profile Photo</th>
+                    <td>
+                        @if (!string.IsNullOrEmpty(Model.ProfilePhoto))
+                        {
+                            <img src="@Url.Content(Model.ProfilePhoto)" alt="Profile Photo" width="120" height="120" class="rounded-circle border" />
+                        }
+                        else
+                        {
+                            <span class="text-muted">No photo uploaded</span>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="text-primary mt-4 mb-3">Contact Information</h4>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Personal Email</th>
+                    <td>@Model.PersonalEmail</td>
+                </tr>
+                <tr>
+                    <th>Office Email</th>
+                    <td>@Model.OfficeEmail</td>
+                </tr>
+                <tr>
+                    <th>Phone Number</th>
+                    <td>@Model.PhoneNo</td>
+                </tr>
+                <tr>
+                    <th>Emergency Contact Name</th>
+                    <td>@Model.EmergCntName</td>
+                </tr>
+                <tr>
+                    <th>Emergency Phone</th>
+                    <td>@Model.EmerPhoneNo</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="text-primary mt-4 mb-3">Employment Information</h4>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Department</th>
+                    <td>@Model.Department</td>
+                </tr>
+                <tr>
+                    <th>Designation</th>
+                    <td>@Model.Designation</td>
+                </tr>
+                <tr>
+                    <th>Employee Type</th>
+                    <td>@Model.EmployeeType</td>
+                </tr>
+                <tr>
+                    <th>Joining Date</th>
+                    <td>@Model.JoiningDate</td>
+                </tr>
+                <tr>
+                    <th>Release Date</th>
+                    <td>@Model.ReleaseDate</td>
+                </tr>
+                <tr>
+                    <th>Last Working Date</th>
+                    <td>@Model.LastDate</td>
+                </tr>
+                <tr>
+                    <th>Active Employee</th>
+                    <td>@(Model.IsActive ? "Yes" : "No")</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="text-primary mt-4 mb-3">Primary Address</h4>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Address Type</th>
+                    <td>@Model.P_Addresstype</td>
+                </tr>
+                <tr>
+                    <th>Address Line 1</th>
+                    <td>@Model.P_Add1</td>
+                </tr>
+                <tr>
+                    <th>Address Line 2</th>
+                    <td>@Model.P_Add2</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>@Model.P_City</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>@Model.P_State</td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td>@Model.P_Country</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="text-primary mt-4 mb-3">Current Address</h4>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Address Line 1</th>
+                    <td>@Model.C_Add1</td>
+                </tr>
+                <tr>
+                    <th>Address Line 2</th>
+                    <td>@Model.C_Add2</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>@Model.C_City</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>@Model.C_State</td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td>@Model.C_Country</td>
+                </tr>
+                <tr>
+                    <th>Pincode</th>
+                    <td>@Model.C_Pincode</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="text-primary mt-4 mb-3">KYC Information</h4>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Aadhar Number</th>
+                    <td>@Model.AadharNo</td>
+                </tr>
+                <tr>
+                    <th>PAN Number</th>
+                    <td>@Model.PanNo</td>
+                </tr>
+                <tr>
+                    <th>EPF / UAN Number</th>
+                    <td>@Model.EPFUANNo</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="text-primary mt-4 mb-3">Work Experience</h4>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Work Status</th>
+                    <td>@Model.WorkStatus</td>
+                </tr>
+                <tr>
+                    <th>Total Experience</th>
+                    <td>@Model.WorkExperinence</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="text-primary mt-4 mb-3">Education Details</h4>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Education</th>
+                    <td>@Model.EducationDetails</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4 text-center">
+        <button class="btn btn-primary" onclick="printDetails()">
+            <i class="mdi mdi-printer"></i> Print
+        </button>
+        @Html.ActionLink("Back to List", "EmpList", null, new { @class = "btn btn-secondary" })
+    </div>
+
+</div>
+    <script>
+        function printDetails() {
+            var printContent = document.getElementById('printSection').innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+            location.reload(); // restore original content
+        }
+    </script>
+
+    <style>
+        th {
+            width: 30%;
+            background-color: #f8f9fa;
+            text-align: left;
+            vertical-align: middle !important;
+        }
+
+        td {
+            width: 70%;
+            vertical-align: middle !important;
+        }
+
+        .table th, .table td {
+            padding: 10px;
+        }
+    </style>
+
+
+

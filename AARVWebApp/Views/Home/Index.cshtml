@@ -1,0 +1,198 @@
+﻿@model AARVWebApp.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white me-2">
+                    <i class="mdi mdi-view-dashboard"></i>
+                </span> Dashboard
+            </h3>
+            <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <span></span> Project Management Overview
+                        <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- === Top Summary Cards === -->
+        <div class="row">
+            <div class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-primary card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="~/Themes/dist/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                        <h4 class="font-weight-normal mb-3">
+                            Total Projects <i class="mdi mdi-briefcase-check mdi-24px float-end"></i>
+                        </h4>
+                        <h2 class="mb-5">@Model.TotalProjects</h2>
+                        <h6 class="card-text">Active + Completed Projects</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-info card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="~/Themes/dist/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                        <h4 class="font-weight-normal mb-3">
+                            Active Clients <i class="mdi mdi-account-multiple-outline mdi-24px float-end"></i>
+                        </h4>
+                        <h2 class="mb-5">@Model.TotalClients</h2>
+                        <h6 class="card-text">Engaged this month</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-success card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="~/Themes/dist/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                        <h4 class="font-weight-normal mb-3">
+                            Employees <i class="mdi mdi-account-tie mdi-24px float-end"></i>
+                        </h4>
+                        <h2 class="mb-5">@Model.TotalEmployees</h2>
+                        <h6 class="card-text">Project Managers + Staff</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-warning card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="~/Themes/dist/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                        <h4 class="font-weight-normal mb-3">
+                            Categories <i class="mdi mdi-format-list-bulleted mdi-24px float-end"></i>
+                        </h4>
+                        <h2 class="mb-5">@Model.TotalCategories</h2>
+                        <h6 class="card-text">Project Categories</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Charts Row === -->
+        <div class="row">
+            <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="clearfix">
+                            <h4 class="card-title float-start">Projects Created (Last 6 Months)</h4>
+                            <div id="project-growth-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-end"></div>
+                        </div>
+                        <canvas id="project-growth-chart" class="mt-4"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Project Status Distribution</h4>
+                        <div class="doughnutjs-wrapper d-flex justify-content-center">
+                            <canvas id="project-status-chart"></canvas>
+                        </div>
+                        <div id="project-status-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Recent Projects Table === -->
+        <div class="row">
+            <div class="col-12 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Recent Projects</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th> Project Name </th>
+                                        <th> Client </th>
+                                        <th> Manager </th>
+                                        <th> Status </th>
+                                        <th> Due Date </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var p in Model.RecentProjects)
+                                    {
+                                        <tr>
+                                            <td>@p.ProjectName</td>
+                                            <td>@p.ClientName</td>
+                                            <td>@p.ProjectManager</td>
+                                            <td>
+                                                @if (p.Status == "Completed")
+                                                {
+                                                    <label class="badge badge-gradient-success">Completed</label>
+                                                }
+                                                else if (p.Status == "In Progress")
+                                                {
+                                                    <label class="badge badge-gradient-warning">In Progress</label>
+                                                }
+                                                else
+                                                {
+                                                    <label class="badge badge-gradient-info">@p.Status</label>
+                                                }
+                                            </td>
+                                            <td>@p.DueDate.ToString("dd MMM yyyy")</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- === Scripts for Charts === -->
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Project Growth Chart (Bar)
+        const ctx1 = document.getElementById('project-growth-chart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Encode(Model.Months)),
+                datasets: [{
+                    label: 'Projects Created',
+                    data: @Html.Raw(Json.Encode(Model.ProjectCount)),
+                    backgroundColor: '#4B49AC'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // Project Status Chart (Doughnut)
+        const ctx2 = document.getElementById('project-status-chart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed', 'In Progress', 'On Hold'],
+                datasets: [{
+                    data: @Html.Raw(Json.Encode(Model.ProjectStatusCount)),
+                    backgroundColor: ['#00C292', '#FFB64D', '#2196F3']
+                }]
+            },
+            options: { responsive: true }
+        });
+    </script>
+}

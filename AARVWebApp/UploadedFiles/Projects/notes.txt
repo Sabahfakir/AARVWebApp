@@ -1,0 +1,221 @@
+Add user
+User list
+Change password
+
+Add user :-
+Username 
+ password 
+First name
+Last
+Mobile 
+Emailid
+RoleId
+CreatedDatetime 
+UodateDateTime 
+CreatedByUser id
+UpdatedByUser id
+IsDeleted
+
+User list :-
+Table UserRole 
+RoleId
+Rolename 
+IsActive
+
+
+Here’s a list of common **student form fields**, typically used for admission, registration, or student management systems:
+
+---
+
+### 🧾 **Basic Personal Information**
+
+1. **Full Name**
+2. **Gender** (Male / Female / Other)
+3. **Date of Birth**
+4. **Blood Group**
+5. **Nationality**
+6. **Aadhar Number** (if applicable)
+7. **Category / Caste** (General / SC / ST / OBC / Other)
+8. **Religion**
+9. **Mother Tongue**
+
+---
+
+### 🏡 **Contact Details**
+
+10. **Phone Number**
+11. **Alternate Phone Number**
+12. **Email Address**
+13. **Permanent Address**
+14. **Correspondence Address**
+
+---
+
+### 👪 **Family Details**
+
+15. **Father’s Name**
+16. **Father’s Occupation**
+17. **Father’s Phone Number**
+18. **Mother’s Name**
+19. **Mother’s Occupation**
+20. **Mother’s Phone Number**
+21. **Guardian’s Name** (if different)
+22. **Guardian’s Contact Number**
+
+---
+
+### 🏫 **Educational Background**
+
+23. **Previous School/College Name**
+24. **Last Class/Grade Passed**
+25. **Board/University**
+26. **Year of Passing**
+27. **Percentage / CGPA**
+28. **Upload Marksheet**
+
+---
+
+### 🎓 **Admission Details**
+
+29. **Course / Program Applying For**
+30. **Department**
+31. **Year / Semester**
+32. **Roll Number** (to be generated)
+33. **Admission Date**
+
+---
+
+### 📁 **Documents Upload**
+
+34. **Photo Upload**
+35. **Signature Upload**
+36. **Aadhar Card Upload**
+37. **Caste Certificate**
+38. **Income Certificate**
+39. **Domicile Certificate**
+40. **Transfer Certificate**
+41. **Migration Certificate**
+
+---
+
+### ✅ **Other Information**
+
+42. **Hostel Required?** (Yes / No)
+43. **Transport Required?** (Yes / No)
+44. **Special Needs / Disabilities** (if any)
+45. **Scholarship Details** (if applicable)
+
+---
+
+Let me know if you need these fields structured as a **form in HTML**, **database table**, or in **Excel format**.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Based on the three form screenshots, here’s a suggested SQL Server table structure with column names and datatypes to store all the data successfully.
+
+---
+
+### Table: **Employee**
+
+| Column Name          | Data Type                     | Description                 |
+| -------------------- | ----------------------------- | --------------------------- |
+| EmployeeID           | INT IDENTITY(1,1) PRIMARY KEY | Unique employee identifier  |
+| EmployeeCode         | NVARCHAR(50)                  | Employee code               |
+| FirstName            | NVARCHAR(100)                 | First name                  |
+| MiddleName           | NVARCHAR(100) NULL            | Middle name (optional)      |
+| LastName             | NVARCHAR(100)                 | Last name                   |
+| PersonalEmail        | NVARCHAR(150) NULL            | Personal email              |
+| PhoneNumber          | NVARCHAR(20) NULL             | Phone number                |
+| OfficeEmail          | NVARCHAR(150) NULL            | Office email                |
+| EmergencyContactName | NVARCHAR(100) NULL            | Emergency contact name      |
+| EmergencyPhoneNo     | NVARCHAR(20) NULL             | Emergency phone number      |
+| Gender               | NVARCHAR(20)                  | Gender                      |
+| ProfilePhotoPath     | NVARCHAR(255) NULL            | File path for profile photo |
+| Department           | NVARCHAR(100) NULL            | Department name             |
+| Designation          | NVARCHAR(100) NULL            | Designation name            |
+| EmployeeType         | NVARCHAR(50) NULL             | Employee type               |
+
+---
+
+### Primary Address Info
+
+| Column Name        | Data Type          | Description    |
+| ------------------ | ------------------ | -------------- |
+| PrimaryCountry     | NVARCHAR(100) NULL | Country        |
+| PrimaryState       | NVARCHAR(100) NULL | State          |
+| PrimaryCity        | NVARCHAR(100) NULL | City           |
+| PrimaryAddressType | NVARCHAR(50) NULL  | Address type   |
+| PrimaryAddress1    | NVARCHAR(255) NULL | Address line 1 |
+| PrimaryAddress2    | NVARCHAR(255) NULL | Address line 2 |
+
+---
+
+### Current Address Info
+
+| Column Name     | Data Type          | Description    |
+| --------------- | ------------------ | -------------- |
+| CurrentAddress1 | NVARCHAR(255) NULL | Address line 1 |
+| CurrentAddress2 | NVARCHAR(255) NULL | Address line 2 |
+| CurrentCountry  | NVARCHAR(100) NULL | Country        |
+| CurrentState    | NVARCHAR(100) NULL | State          |
+| CurrentCity     | NVARCHAR(100) NULL | City           |
+| CurrentPinCode  | NVARCHAR(20) NULL  | Pin code       |
+
+---
+
+### Employee Activation
+
+| Column Name | Data Type     | Description              |
+| ----------- | ------------- | ------------------------ |
+| IsActive    | BIT DEFAULT 0 | 1 = Active, 0 = Inactive |
+
+---
+
+### Employment Details
+
+| Column Name | Data Type | Description       |
+| ----------- | --------- | ----------------- |
+| JoiningDate | DATE NULL | Joining date      |
+| ReleaseDate | DATE NULL | Release date      |
+| LastDate    | DATE NULL | Last working date |
+
+---
+
+### KYC Information
+
+| Column Name  | Data Type         | Description    |
+| ------------ | ----------------- | -------------- |
+| AadharCardNo | NVARCHAR(20) NULL | Aadhaar number |
+| PANCardNo    | NVARCHAR(20) NULL | PAN number     |
+| EPFUANNo     | NVARCHAR(20) NULL | EPF UAN number |
+
+---
+
+### Work Experience
+
+| Column Name      | Data Type          | Description               |
+| ---------------- | ------------------ | ------------------------- |
+| WorkStatus       | NVARCHAR(20)       | 'Fresher' or 'Experience' |
+| EducationDetails | NVARCHAR(MAX) NULL | Education details         |
+
+---
+
+If you want, I can also give you the **full SQL CREATE TABLE script** for this structure so you can directly execute it in SQL Server Management Studio. That way you won’t have to manually add each column.
+
+Do you want me to prepare that script?
+

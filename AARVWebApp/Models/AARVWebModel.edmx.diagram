@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e5ff728d6bfe452594fbd6359e95ae7e" Name="Diagram1" ZoomLevel="40">
+        <EntityTypeShape EntityType="AARVWebDBModel.UserMaster" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="AARVWebDBModel.EmployeeMaster" Width="1.5" PointX="2.5" PointY="0.5" />
+        <EntityTypeShape EntityType="AARVWebDBModel.ClientMaster" Width="1.5" PointX="14.25" PointY="0.875" />
+        <EntityTypeShape EntityType="AARVWebDBModel.Project_Category" Width="1.5" PointX="4.625" PointY="2.75" />
+        <EntityTypeShape EntityType="AARVWebDBModel.Project_Status" Width="1.5" PointX="11.75" PointY="7.25" />
+        <EntityTypeShape EntityType="AARVWebDBModel.ProjectDetail" Width="1.5" PointX="6.75" PointY="0.5" />
+        <EntityTypeShape EntityType="AARVWebDBModel.ProjectFile" Width="1.5" PointX="9.375" PointY="0.75" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ClientMaster_CreatedBy" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ClientMaster_UpdatedBy" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ProjectDetails_ProjectManager" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ProjectDetails_Category" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ProjectDetails_Status" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ProjectDetails_CreatedBy" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ProjectDetails_UpdatedBy" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ProjectFiles_Project" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ProjectFiles_UpdatedBy" />
+        <AssociationConnector Association="AARVWebDBModel.FK_ProjectFiles_UploadedBy" />
+        <EntityTypeShape EntityType="AARVWebDBModel.LoginHistory" Width="1.5" PointX="2.75" PointY="10.375" />
+        <AssociationConnector Association="AARVWebDBModel.FK__LoginHist__UserI__3F466844" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

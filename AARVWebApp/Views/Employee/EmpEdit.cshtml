@@ -1,0 +1,236 @@
+﻿@model AARVWebApp.Models.EmployeeMaster
+@{
+    ViewBag.Title = "EmpEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+
+    <h2 class="text-center mb-4">Edit Employee Details</h2>
+
+
+
+    @using (Html.BeginForm("EmpEdit", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Emp_ID) <!-- ✅ Hidden Primary Key -->
+
+        <div class="card shadow p-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Emp_Code)
+                        @Html.TextBoxFor(m => m.Emp_Code, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName)
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MiddleName)
+                        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName)
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Gender)
+                        @Html.DropDownListFor(m => m.Gender,
+                            new SelectList(new[] { "Male", "Female", "Other" }),
+                            "Select Gender", new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ProfilePhoto)
+                        <input type="file" name="ProfilePhotoFile" class="form-control" />
+                        @if (!string.IsNullOrEmpty(Model.ProfilePhoto))
+                        {
+                            <img src="@Url.Content(Model.ProfilePhoto)" width="80" height="80" class="mt-2 rounded" />
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PersonalEmail)
+                        @Html.TextBoxFor(m => m.PersonalEmail, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OfficeEmail)
+                        @Html.TextBoxFor(m => m.OfficeEmail, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhoneNo)
+                        @Html.TextBoxFor(m => m.PhoneNo, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EmergCntName, "Emergency Contact Name")
+                        @Html.TextBoxFor(m => m.EmergCntName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EmerPhoneNo, "Emergency Phone No")
+                        @Html.TextBoxFor(m => m.EmerPhoneNo, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Department)
+                        @Html.TextBoxFor(m => m.Department, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Designation)
+                        @Html.TextBoxFor(m => m.Designation, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EmployeeType)
+                        @Html.TextBoxFor(m => m.EmployeeType, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="mt-2">Primary Address</h5>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.P_Country)
+                        @Html.TextBoxFor(m => m.P_Country, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.P_State)
+                        @Html.TextBoxFor(m => m.P_State, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.P_City)
+                        @Html.TextBoxFor(m => m.P_City, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.P_Addresstype)
+                        @Html.TextBoxFor(m => m.P_Addresstype, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.P_Add1)
+                        @Html.TextBoxFor(m => m.P_Add1, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.P_Add2)
+                        @Html.TextBoxFor(m => m.P_Add2, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Current Address</h5>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.C_Add1)
+                        @Html.TextBoxFor(m => m.C_Add1, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.C_Add2)
+                        @Html.TextBoxFor(m => m.C_Add2, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.C_Country)
+                        @Html.TextBoxFor(m => m.C_Country, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.C_State)
+                        @Html.TextBoxFor(m => m.C_State, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.C_City)
+                        @Html.TextBoxFor(m => m.C_City, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.C_Pincode)
+                        @Html.TextBoxFor(m => m.C_Pincode, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h5>Employment Details</h5>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.JoiningDate)
+                        @Html.TextBoxFor(m => m.JoiningDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ReleaseDate)
+                        @Html.TextBoxFor(m => m.ReleaseDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastDate)
+                        @Html.TextBoxFor(m => m.LastDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.IsActive)
+                        @Html.CheckBoxFor(m => m.IsActive)
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>KYC Details</h5>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.AadharNo)
+                        @Html.TextBoxFor(m => m.AadharNo, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PanNo)
+                        @Html.TextBoxFor(m => m.PanNo, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EPFUANNo)
+                        @Html.TextBoxFor(m => m.EPFUANNo, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h5>Experience</h5>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.WorkStatus)
+                        @Html.TextBoxFor(m => m.WorkStatus, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.WorkExperinence)
+                        @Html.TextBoxFor(m => m.WorkExperinence, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h5>Education</h5>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EducationDetails)
+                        @Html.TextAreaFor(m => m.EducationDetails, new { @class = "form-control", rows = 4 })
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success px-4">Update</button>
+                @Html.ActionLink("Back to List", "EmpList", null, new { @class = "btn btn-secondary px-4 ms-2" })
+            </div>
+        </div>
+    }
+
+    <style>
+        h5 {
+            color: #2d3e50;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+    </style>
+
+</div>
+    
+
+
+
